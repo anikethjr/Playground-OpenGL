@@ -15,21 +15,92 @@ using namespace std;
 class Swing
 {
     public:
-        Swing()
+        Swing(double left_swing_angle, double right_swing_angle)
         {
             glColor3d(255.0/255,0,0);
 
+            //Left bars
             glPushMatrix();
             glTranslated(0,0,0);
+            glRotated(-20,0,0,1);
             glScaled(0.01,0.5,0.01);
             glutSolidCube(1);
             glPopMatrix();
 
             glPushMatrix();
-            glTranslated(0,0,0);
+            glTranslated(0.17,0,0);
+            glRotated(20,0,0,1);
             glScaled(0.01,0.5,0.01);
             glutSolidCube(1);
             glPopMatrix();
+
+            //Right bars
+            glPushMatrix();
+            glTranslated(0,0,-0.75);
+            glRotated(-20,0,0,1);
+            glScaled(0.01,0.5,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+
+            glPushMatrix();
+            glTranslated(0.17,0,-0.75);
+            glRotated(20,0,0,1);
+            glScaled(0.01,0.5,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+
+            //Top rod
+            glPushMatrix();
+            glTranslated(0.09,0.23,-0.375);
+            glScaled(0.01,0.01,0.5);
+            glutSolidCube(1.5);
+            glPopMatrix();
+
+            //Chains
+            glColor3d(0,0,0);
+            glPushMatrix();
+            glTranslated(0.09,0.05,-0.1);
+            glScaled(0.01,0.5,0.01);
+            glutSolidCube(0.75);
+            glPopMatrix();
+
+            glColor3d(0,0,0);
+            glPushMatrix();
+            glTranslated(0.09,0.05,-0.25);
+            glScaled(0.01,0.5,0.01);
+            glutSolidCube(0.75);
+            glPopMatrix();
+
+            glColor3d(0,0,0);
+            glPushMatrix();
+            glTranslated(0.09,0.05,-0.5);
+            glScaled(0.01,0.5,0.01);
+            glutSolidCube(0.75);
+            glPopMatrix();
+
+            glColor3d(0,0,0);
+            glPushMatrix();
+            glTranslated(0.09,0.05,-0.65);
+            glScaled(0.01,0.5,0.01);
+            glutSolidCube(0.75);
+            glPopMatrix();
+
+            //Seats
+            glColor3d(255.0/255.0, 255.0/255.0, 17.0/255.0);
+            glPushMatrix();
+            glTranslated(0.09,-0.14,-0.575);
+            glScaled(0.25,0.01,0.33);
+            glutSolidCube(0.5);
+            glPopMatrix();
+
+            glColor3d(255.0/255.0, 255.0/255.0, 17.0/255.0);
+            glPushMatrix();
+            glTranslated(0.09,-0.14,-0.175);
+            glScaled(0.25,0.01,0.33);
+            glutSolidCube(0.5);
+            glPopMatrix();
+
+
         }
 };
 
