@@ -12,26 +12,53 @@
 using namespace glm;
 using namespace std;
 
-class Swing
+class Slide
 {
     public:
-        Swing()
+        Slide()
         {
             glColor3d(255.0/255,0,0);
 
             glPushMatrix();
             glTranslated(0,0,0);
-            glScaled(0.01,0.5,0.01);
+            glRotatef(45.0, 0, 0, 1);
+            glScaled(1,0.03,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+
+
+            glPushMatrix();
+            glTranslated(0,0,-0.2);
+            glRotatef(45.0, 0, 0, 1);
+            glScaled(1,0.03,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+
+        }
+
+        void line()
+        {
+            glColor3d(0,0,0);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+            glPushMatrix();
+            glTranslated(0,0,0);
+            glRotatef(45.0, 0, 0, 1);
+            glScaled(1,0.03,0.01);
             glutSolidCube(1);
             glPopMatrix();
 
             glPushMatrix();
-            glTranslated(0,0,0);
-            glScaled(0.01,0.5,0.01);
+            glTranslated(0,0,-0.2);
+            glRotatef(45.0, 0, 0, 1);
+            glScaled(1,0.03,0.01);
             glutSolidCube(1);
             glPopMatrix();
+
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
 };
+
 
 void chair()
 {

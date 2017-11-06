@@ -16,7 +16,13 @@ void renderScene(void)
 
 
     glPushMatrix();
-    Swing();
+    glRotatef(87, 0, 1, 0);
+    Slide slide;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(87, 0, 1, 0);
+    slide.line();
     glPopMatrix();
 
     glEnd();
