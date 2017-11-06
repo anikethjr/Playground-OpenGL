@@ -535,7 +535,7 @@ public:
     }
 };
 
-class MonkeyBars
+class MonkeyBar
 {
 public:
     void create()
@@ -549,7 +549,7 @@ public:
     {
         // frame
         // frame right edge
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(9/255.0, 71/255.0, 42/255.0);
         glPushMatrix();
         glTranslated(0, 0, 0);
         glScaled(1, 0.03, 0.05);
@@ -557,7 +557,7 @@ public:
         glPopMatrix();
 
         // frame left edge
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(9/255.0, 71/255.0, 42/255.0);
         glPushMatrix();
         glTranslated(0, 0, -0.35);
         glScaled(1, 0.03, 0.05);
@@ -565,14 +565,14 @@ public:
         glPopMatrix();
 
         // frame right legs
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(9/255.0, 71/255.0, 42/255.0);
         glPushMatrix();
         glTranslated(-0.485, -0.287, 0);
         glScaled(0.03, 0.6, 0.05);
         glutSolidCube(1);
         glPopMatrix();
 
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(9/255.0, 71/255.0, 42/255.0);
         glPushMatrix();
         glTranslated(0.485, -0.287, 0);
         glScaled(0.03, 0.6, 0.05);
@@ -580,14 +580,14 @@ public:
         glPopMatrix();
 
         // frame left legs
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(9/255.0, 71/255.0, 42/255.0);
         glPushMatrix();
         glTranslated(-0.485, -0.287, -0.35);
         glScaled(0.03, 0.6, 0.05);
         glutSolidCube(1);
         glPopMatrix();
 
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(9/255.0, 71/255.0, 42/255.0);
         glPushMatrix();
         glTranslated(0.485, -0.287, -0.35);
         glScaled(0.03, 0.6, 0.05);
@@ -602,10 +602,52 @@ public:
     void bars()
     {
         // bars
-        glColor3d(10/255.0, 145/255.0, 75/255.0);
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
         glPushMatrix();
-        glTranslated(0, 0, 0);
-        glScaled(1, 0.03, 0.05);
+        glTranslated(0, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
+        glPushMatrix();
+        glTranslated(0.15, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
+        glPushMatrix();
+        glTranslated(-0.15, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
+        glPushMatrix();
+        glTranslated(0.3, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
+        glPushMatrix();
+        glTranslated(-0.3, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
+        glPushMatrix();
+        glTranslated(-0.45, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glColor3d(53/255.0, 64/255.0, 86/255.0);
+        glPushMatrix();
+        glTranslated(0.45, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
         glutSolidCube(1);
         glPopMatrix();
     }
@@ -657,15 +699,48 @@ public:
         glutSolidCube(1);
         glPopMatrix();
 
+        // bars
+        glPushMatrix();
+        glTranslated(0, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
+        glPushMatrix();
+        glTranslated(0.15, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
+        glPushMatrix();
+        glTranslated(-0.15, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
+        glPushMatrix();
+        glTranslated(0.3, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
+        glPushMatrix();
+        glTranslated(-0.3, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
+        glPushMatrix();
+        glTranslated(-0.45, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
-
-
-
+        glPushMatrix();
+        glTranslated(0.45, 0, -0.2);
+        glScaled(0.03, 0.03, -0.35);
+        glutSolidCube(1);
+        glPopMatrix();
 
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

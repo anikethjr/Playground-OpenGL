@@ -25,7 +25,7 @@ void renderScene(void)
     glPushMatrix();
     glTranslatef(0, 0, 0); // change this later accordingly
     glRotatef(75, 0, 1, 0);
-    MonkeyBars mb;
+    MonkeyBar mb;
     mb.create();
     glPopMatrix();
 
