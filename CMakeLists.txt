@@ -16,6 +16,6 @@ file(GLOB SOURCE_FILES
         )
 
 add_executable(Scenery ${SOURCE_FILES})
-add_executable(main.cpp ${SOURCE_FILES} camera.h primitives.h scene.h)
+add_executable(main.cpp ${SOURCE_FILES} camera.h primitives.h props.h)
 target_link_libraries (Scenery ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${OPENGL_glu_LIBRARY})
 target_link_libraries (main.cpp ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${OPENGL_glu_LIBRARY})

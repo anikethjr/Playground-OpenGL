@@ -4,9 +4,12 @@
 #ifndef SCENERY_PRIMITIVES_H
 #define SCENERY_PRIMITIVES_H
 
-#include<bits/stdc++.h>
-#include<GL/glu.h>
-#include<GL/glut.h>
+#include <bits/stdc++.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <glm/glm.hpp>
+
+using namespace glm;
 using namespace std;
 
 class Point
@@ -15,17 +18,19 @@ class Point
         double x,y,z;
         Point()
         {
-            x=0; y=0; z=0;
+            x=y=z=0;
         }
-        Point(double dx, double dy, double dz)
+        Point(double x, double y, double z)
         {
-            x=dx; y=dy; z=dz;
+            this->x=x;
+            this->y=y;
+            this->z=z;
         }
-        void set(double dx, double dy, double dz)
+        void set(double x, double y, double z)
         {
-            x=dx;
-            y=dy;
-            z=dz;
+            this->x=x;
+            this->y=y;
+            this->z=z;
         }
         void set(Point p)
         {
@@ -43,15 +48,17 @@ class Vector
         {
             x=0; y=0; z=0;
         }
-        Vector(double dx, double dy, double dz)
+        Vector(double x, double y, double z)
         {
-            x=dx; y=dy; z=dz;
+            this->x=x;
+            this->y=y;
+            this->z=z;
         }
-        void set(double dx, double dy, double dz)
+        void set(double x, double y, double z)
         {
-            x=dx;
-            y=dy;
-            z=dz;
+            this->x=x;
+            this->y=y;
+            this->z=z;
         }
         void set(Vector v)
         {

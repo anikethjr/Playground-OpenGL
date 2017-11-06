@@ -4,11 +4,16 @@
 #ifndef SCENERY_CAMERA_H
 #define SCENERY_CAMERA_H
 
-#include<GL/glu.h>
-#include<GL/glut.h>
-#include<iostream>
+#include <bits/stdc++.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <glm/glm.hpp>
 #include "primitives.h"
+
 #define PI 3.14159265
+
+using namespace glm;
+using namespace std;
 
 class Camera
 {
