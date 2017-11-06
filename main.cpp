@@ -6,7 +6,8 @@ using namespace glm;
 using namespace std;
 
 Camera cam;
-double left_swing_angle=0, right_swing_angle=0, inclination = 45.0;
+double left_swing_angle=0, right_swing_angle=0;
+double merryGoRound_rotate = 0;
 
 void renderScene(void)
 {
@@ -15,18 +16,22 @@ void renderScene(void)
     glEnable (GL_DEPTH_TEST);
     glDisable (GL_LIGHTING);
 
+    //Draw the ground
+    Ground g;
 
-//    glPushMatrix();
-//    glRotatef(75, 0, 1, 0);
-//    Slide slide;
-//    slide.create(inclination);
-//    glPopMatrix();
-
+    //Place and scale merry-go-round
     glPushMatrix();
-    glTranslatef(0, 0, 0); // change this later accordingly
-    glRotatef(75, 0, 1, 0);
-    MonkeyBar mb;
-    mb.create();
+    glTranslated(-2.0,-0.25,1);
+    glRotated(merryGoRound_rotate,0,1,0);
+    MerryGoRound m;
+    glPopMatrix();
+
+    //Place and scale swing
+    glPushMatrix();
+    glTranslated(1,0,-1);
+    glRotated(90,0,1,0);
+    glScaled(1.5,1.5,1.5);
+    Swing s(left_swing_angle,right_swing_angle);
     glPopMatrix();
 
     glEnd();
@@ -46,6 +51,7 @@ void idle()
 
     left_swing_angle = (left_swing_angle + 0.2);
     right_swing_angle = (right_swing_angle - 0.2);
+    merryGoRound_rotate = merryGoRound_rotate + 0.001;
     glutPostRedisplay();
 }
 
@@ -103,19 +109,15 @@ void keyPress(unsigned char key,int x,int y)
             break;
         //Front view
         case 'g':
-            cam.set(Point(0,0,2),Point(0,0,0),Vector(0,1,0));
+            cam.set(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
             return;
         //Right view
         case 'h':
-            cam.set(Point(2,0,0),Point(0,0,0),Vector(0,1,0));
+            cam.set(Point(5,0,0),Point(0,0,0),Vector(0,1,0));
             return;
         //Top view
         case 't':
-            cam.set(Point(0,2,0),Point(0,0,0),Vector(0,0,1));
-            return;
-        //Back View
-        case 'b':
-            cam.set(Point(0,0,-2),Point(0,0,0),Vector(0,1,0));
+            cam.set(Point(0,5,0),Point(0,0,0),Vector(0,0,-1));
             return;
         default:
             return;
@@ -129,7 +131,7 @@ int main()
     int x = 0;
     glutInit(&x, nullptr);
     glutInitWindowPosition(0,0);
-    glutInitWindowSize(800,600);
+    glutInitWindowSize(928,696);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutCreateWindow("Scenery");
     glEnable(GL_DEPTH_TEST);
@@ -142,8 +144,8 @@ int main()
 
     // setup camera
     glClearColor (135.0/255.0,206.0/255.0,250.0/255.0, 1.0);
-    cam.set(Point(2,0,0),Point(0,0,0),Vector(0,1,0));
-    cam.setShape(45,800.00/600.00,1.0, 50.0);
+    cam.set(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
+    cam.setShape(45,928.00/696.00,1.0, 50.0);
 
     // enter GLUT event processing cycle
     glutMainLoop();
