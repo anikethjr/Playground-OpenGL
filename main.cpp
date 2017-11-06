@@ -6,6 +6,7 @@ using namespace glm;
 using namespace std;
 
 Camera cam;
+double left_swing_angle=0, right_swing_angle=0;
 
 void renderScene(void)
 {
@@ -16,13 +17,7 @@ void renderScene(void)
 
 
     glPushMatrix();
-    glRotatef(87, 0, 1, 0);
-    Slide slide;
-    glPopMatrix();
-
-    glPushMatrix();
-    glRotatef(87, 0, 1, 0);
-    slide.line();
+    Swing(left_swing_angle, right_swing_angle);
     glPopMatrix();
 
     glEnd();
@@ -32,6 +27,16 @@ void renderScene(void)
 
 void idle()
 {
+//    double left_swing_angle_increment, right_swing_angle_increment;
+//    if(left_swing_angle>=0 && left_swing_angle<=45)
+//        left_swing_angle_increment = 0.1;
+//    else if(left_swing_angle<0 && left_swing_angle>=-45)
+//        left_swing_angle_increment = -0.1;
+//    else if(left_swing_angle)
+//        left_swing_angle_increment = -0.1;
+
+    left_swing_angle = (left_swing_angle + 0.2);
+    right_swing_angle = (right_swing_angle - 0.2);
     glutPostRedisplay();
 }
 
@@ -87,9 +92,18 @@ void keyPress(unsigned char key,int x,int y)
         case 'x':
             cam.roll(1.0);
             break;
-        //Reset to original values
-        case 'o':
+        //Front view
+        case 'g':
             cam.set(Point(0,0,2),Point(0,0,0),Vector(0,1,0));
+            return;
+        //Right view
+        case 'h':
+            cam.set(Point(2,0,0),Point(0,0,0),Vector(0,1,0));
+            return;
+        //Top view
+        case 't':
+            cam.set(Point(0,2,0),Point(0,0,0),Vector(0,0,1));
+            return;
         default:
             return;
     }
@@ -114,8 +128,8 @@ int main()
     glutKeyboardFunc(keyPress);
 
     // setup camera
-    glClearColor (135.0/256.0,206.0/256.0,250.0/256.0, 1.0);
-    cam.set(Point(0,0,2),Point(0,0,0),Vector(0,1,0));
+    glClearColor (135.0/255.0,206.0/255.0,250.0/255.0, 1.0);
+    cam.set(Point(2,0,0),Point(0,0,0),Vector(0,1,0));
     cam.setShape(45,800.00/600.00,1.0, 50.0);
 
     // enter GLUT event processing cycle
