@@ -6,73 +6,58 @@ using namespace glm;
 using namespace std;
 
 Camera cam;
-double left_swing_angle=0, right_swing_angle=0, inclination = 45.0;
+double slide_inclination = 45.0;
 double merryGoRound_rotate = 0;
 
-void renderScene(void)
+/**
+ * Function which assembles the various objects and creates the scene
+ */
+void renderScene()
 {
     //Clear screen
     glClear  (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable (GL_DEPTH_TEST);
     glDisable (GL_LIGHTING);
 
-//    //Draw the ground
-//    Ground g;
-//
-//    //Place and scale merry-go-round
-//    glPushMatrix();
-//    glTranslated(-2.0,-0.25,1);
-//    glRotated(merryGoRound_rotate,0,1,0);
-//    MerryGoRound m;
-//    glPopMatrix();
-//
-//    //Place and scale swing
-//    glPushMatrix();
-//    glTranslated(1,0,-1);
-//    glRotated(90,0,1,0);
-//    glScaled(1.5,1.5,1.5);
-//    Swing s(left_swing_angle,right_swing_angle);
-//    glPopMatrix();
-//
-//    // Place slide
-//    glPushMatrix();
-//    glTranslated(2,0,-1);
-//    glRotatef(75, 0, 1, 0);
-//    Slide slide;
-//    slide.create(inclination);
-//    glPopMatrix();
-//
-//    // Place and scale monkey bar
-//    glPushMatrix();
-//    glTranslatef(-1.3, 0.51, -0.91); // change this later accordingly
-//    glRotatef(-75, 0, 1, 0);
-//    glScaled(1.5,1.5,1.5);
-//    MonkeyBar mb;
-//    mb.create();
-//    glPopMatrix();
+    //Draw the ground
+    Ground g;
 
+    //Place and scale merry-go-round
     glPushMatrix();
-    glTranslatef(-1.3, 0.51, -0.91);
+    glTranslated(-2.0,-0.25,1);
+    glRotated(merryGoRound_rotate,0,1,0);
+    MerryGoRound m;
+    glPopMatrix();
+
+    //Place and scale swing
+    glPushMatrix();
+    glTranslated(1,-0.014,-1);
+    glRotated(90,0,1,0);
+    glScaled(1.5,1.5,1.5);
+    Swing s;
+    glPopMatrix();
+
+    // Place slide
+    glPushMatrix();
+    glTranslated(2,0,-1);
     glRotatef(75, 0, 1, 0);
     Slide slide;
-    slide.create(inclination);
+    slide.create(slide_inclination);
     glPopMatrix();
 
     // Place and scale monkey bar
     glPushMatrix();
-    glTranslatef(-1.3, 0.52, -0.91); // change this later accordingly
+    glTranslatef(-1.3, 0.5121, -0.91);
     glRotatef(-75, 0, 1, 0);
     glScaled(1.5,1.5,1.5);
     MonkeyBar mb;
     mb.create();
-    Bench bench;
-    bench.create();
     glPopMatrix();
 
     //Place and scale bench
     glPushMatrix();
-    glTranslatef(-1.3, 0.51, -0.91);
-    glRotatef(75, 0, 1, 0);
+    glTranslatef(1.7, -0.21, 1.2);
+    glRotatef(0, 0, 1, 0);
     Bench bench;
     bench.create();
     glPopMatrix();
@@ -82,49 +67,48 @@ void renderScene(void)
     glutSwapBuffers();
 }
 
+/**
+ * Updates the variables in every frame
+ */
 void idle()
 {
-//    double left_swing_angle_increment, right_swing_angle_increment;
-//    if(left_swing_angle>=0 && left_swing_angle<=45)
-//        left_swing_angle_increment = 0.1;
-//    else if(left_swing_angle<0 && left_swing_angle>=-45)
-//        left_swing_angle_increment = -0.1;
-//    else if(left_swing_angle)
-//        left_swing_angle_increment = -0.1;
-
-    left_swing_angle = (left_swing_angle + 0.2);
-    right_swing_angle = (right_swing_angle - 0.2);
     merryGoRound_rotate = merryGoRound_rotate + 0.001;
     glutPostRedisplay();
 }
 
+/**
+ * Handles key presses
+ * @param key the keyboard input given by the user
+ * @param x x coordinate of the input
+ * @param y y coordinate of the input
+ */
 void keyPress(unsigned char key,int x,int y)
 {
     switch(key)
     {
         //Move forward
         case 'w':
-            cam.slide(0,0,-0.2);
+            cam.move(Vector(0,0,-0.2));
             break;
         //Move back
         case 's':
-            cam.slide(0,0,0.2);
+            cam.move(Vector(0,0,0.2));
             break;
         //Move left
         case 'a':
-            cam.slide(-0.2,0,0);
+            cam.move(Vector(-0.2,0,0));
             break;
         //Move right
         case 'd':
-            cam.slide(0.2,0,0);
+            cam.move(Vector(0.2,0,0));
             break;
         //Move up
         case 'r':
-            cam.slide(0,0.2,0);
+            cam.move(Vector(0,0.2,0));
             break;
         //Move down
         case 'f':
-            cam.slide(0,-0.2,0);
+            cam.move(Vector(0,-0.2,0));
             break;
         //Look up
         case 'i':
@@ -152,19 +136,19 @@ void keyPress(unsigned char key,int x,int y)
             break;
         //Front view
         case 'g':
-            cam.set(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
+            cam.setupPosition(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
             return;
         //Right view
         case 'h':
-            cam.set(Point(5,0,0),Point(0,0,0),Vector(0,1,0));
+            cam.setupPosition(Point(5,0,0),Point(0,0,0),Vector(0,1,0));
             return;
         //Top view
         case 't':
-            cam.set(Point(0,5,0),Point(0,0,0),Vector(0,0,-1));
+            cam.setupPosition(Point(0,5,0),Point(0,0,0),Vector(0,0,-1));
             return;
         //Back view
         case 'b':
-            cam.set(Point(-1,0,-5),Point(-1,0,0),Vector(0,1,0));
+            cam.setupPosition(Point(-1,0,-5),Point(-1,0,0),Vector(0,1,0));
             return;
         default:
             return;
@@ -190,9 +174,9 @@ int main()
     glutKeyboardFunc(keyPress);
 
     // setup camera
-    glClearColor (135.0/255.0,206.0/255.0,250.0/255.0, 1.0);
-    cam.set(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
-    cam.setShape(45,928.00/696.00,1.0, 50.0);
+    glClearColor(135.0/255.0,206.0/255.0,250.0/255.0,1.0);
+    cam.setupPosition(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
+    cam.setupProperties(45,928.00/696.00,0.1, 50.0);
 
     // enter GLUT event processing cycle
     glutMainLoop();

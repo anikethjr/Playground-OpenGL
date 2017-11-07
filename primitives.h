@@ -12,80 +12,94 @@
 using namespace glm;
 using namespace std;
 
+class Point;
+class Vector;
+/**
+ * Finds the vector difference between two points
+ * @param a First point
+ * @param b Second point
+ * @return Returns the difference Vector
+ */
+Vector difference(Point a, Point b);
+
+/**
+ * Class to represent a 3D point
+ */
 class Point
 {
-    public:
-        double x,y,z;
-        Point()
-        {
-            x=y=z=0;
-        }
-        Point(double x, double y, double z)
-        {
-            this->x=x;
-            this->y=y;
-            this->z=z;
-        }
-        void set(double x, double y, double z)
-        {
-            this->x=x;
-            this->y=y;
-            this->z=z;
-        }
-        void set(Point p)
-        {
-            x=p.x;
-            y=p.y;
-            z=p.z;
-        }
+public:
+    double x,y,z;
+    /**
+     * Constructor which initializes x,y,z to 0,0,0
+     */
+    Point();
+    /**
+     * Constructor which initializes the coordinates to those specified in the arguments
+     * @param x x coordinate to be set
+     * @param y y coordinate to be set
+     * @param z z coordinate to be set
+     */
+    Point(double x, double y, double z);
+    /**
+     * Function which sets the coordinates to those specified in the arguments
+     * @param x x coordinate to be set
+     * @param y y coordinate to be set
+     * @param z z coordinate to be set
+     */
+    void set(double x, double y, double z);
+    /**
+     * Function which sets the coordinates equal to those of the Point passed
+     * @param p Point whose values are to be copied
+     */
+    void set(Point p);
 };
 
+/**
+ * Class to represent a 3D vector
+ */
 class Vector
 {
-    public:
-        double x,y,z;
-        Vector()
-        {
-            x=0; y=0; z=0;
-        }
-        Vector(double x, double y, double z)
-        {
-            this->x=x;
-            this->y=y;
-            this->z=z;
-        }
-        void set(double x, double y, double z)
-        {
-            this->x=x;
-            this->y=y;
-            this->z=z;
-        }
-        void set(Vector v)
-        {
-            x=v.x;
-            y=v.y;
-            z=v.z;
-        }
-        void normalize()
-        {
-            x=(double(x))/sqrt(x*x + y*y + z*z);
-            y=(double(y))/sqrt(x*x + y*y + z*z);
-            z=(double(z))/sqrt(x*x + y*y + z*z);
-        }
-        double dot(Vector b)
-        {
-            double result;
-            result= x * b.x + y * b.y + z * b.z;
-            return result;
-        }
-        Vector cross(Vector b)
-        {
-            Vector result;
-            result.x= y* b.z - z * b.y;
-            result.y= z * b.x - x * b.z;
-            result.z= x * b.y - y * b.x;
-            return result;
-        }
+public:
+    double x,y,z;
+    /**
+     * Constructor which initializes x,y,z components to 0,0,0
+     */
+    Vector();
+    /**
+     * Constructor which initializes the components to those specified in the arguments
+     * @param x x component to be set
+     * @param y y component to be set
+     * @param z z component to be set
+     */
+    Vector(double x, double y, double z);
+    /**
+     * Function which sets the components to those specified in the arguments
+     * @param x x component to be set
+     * @param y y component to be set
+     * @param z z component to be set
+     */
+    void set(double x, double y, double z);
+    /**
+     * Function which sets the components equal to those of the Vector passed
+     * @param v Vector whose values are to be copied
+     */
+    void set(Vector v);
+    /**
+     * Normalizes the vector so that its magnitude is 1
+     */
+    void normalize();
+    /**
+     * Finds the dot product of the current Vector with the Vector passed
+     * @param v The vector with which the dot product is to be calculated
+     * @return Returns the dot product
+     */
+    double dot(Vector v);
+    /**
+     * Finds the cross product of the current Vector with the Vector passed
+     * @param v The vector with which the cross product is to be calculated
+     * @return Returns the cross product
+     */
+    Vector cross(Vector v);
 };
 
 #endif //SCENERY_PRIMITIVES_H

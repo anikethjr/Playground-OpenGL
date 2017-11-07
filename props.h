@@ -36,13 +36,22 @@ void glutSolidCylinder(double BASE_INNER,double TOP_INNER,double BASE_OUTER,doub
     glTranslated(0.0, 0.0, -HEIGHT);
 }
 
+/**
+ * Class which is used to draw a swing
+ */
 class Swing {
 public:
-    Swing(double left_swing_angle, double right_swing_angle) {
+    /**
+     * Constructor which draws the various shapes required to make the swing
+     */
+    Swing() {
         solid();
         border();
     }
 
+    /**
+     * Function which draws the solids of the swings
+     */
     void solid() {
         glColor3d(255.0 / 255, 0, 0);
         //Left bars
@@ -126,11 +135,14 @@ public:
         glutSolidCube(0.5);
         glPopMatrix();
     }
+
+    /**
+     * Function which draws the borders of the shapes which constitute the swing
+     */
     void border()
     {
         glColor3d(0,0,0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glPushMatrix();
         //Left bars
         glPushMatrix();
         glTranslated(0, 0, 0);
@@ -209,17 +221,28 @@ public:
         glScaled(0.25, 0.01, 0.33);
         glutSolidCube(0.5);
         glPopMatrix();
-        glPopMatrix();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 };
 
+/**
+ * Class which is used to draw a merry-go-round
+ */
 class MerryGoRound
 {
 public:
-    MerryGoRound()
+    /**
+     * Constructor which draws the various shapes required to make the merry-go-round
+     */
+    MerryGoRound() {
+        solid();
+        border();
+    }
+    /**
+     * Function which draws the solids of the merry-go-round
+     */
+    void solid()
     {
-        //Solid Shapes
         //Base
         glColor3d(86.0/255.0, 49.0/255.0, 168.0/255.0);
         glPushMatrix();
@@ -258,11 +281,60 @@ public:
             glPopMatrix();
         }
     }
+
+    /**
+     * Function which draws the borders of the shapes which constitute the merry-go-round
+     */
+    void border()
+    {
+        glColor3d(0,0,0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //Base
+        glPushMatrix();
+        glRotated(90,1,0,0);
+        glutSolidCylinder(0,0,0.5,0.5,0.1,32,32);
+        glPopMatrix();
+        glPushMatrix();
+        glRotated(90,1,0,0);
+        glutSolidCylinder(0.5,0.5,0.55,0.55,0.01,32,32);
+        glPopMatrix();
+
+        //Bars
+        //Central bar
+        glPushMatrix();
+        glTranslated(0,0.14,0);
+        glScaled(0.01,0.3,0.01);
+        glutSolidCube(1);
+        glPopMatrix();
+        //Horizontal and vertical bars
+        for(int i=0;i<6;i++)
+        {
+            glPushMatrix();
+            glRotated(i*60,0,1,0);
+            glTranslated(0.2,0.285,0);
+            glScaled(0.4,0.01,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+            glPushMatrix();
+            glRotated(i*60,0,1,0);
+            glTranslated(0.4,0.14,0);
+            glScaled(0.01,0.3,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+        }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
 };
 
+/**
+ * Class which creates the ground
+ */
 class Ground
 {
 public:
+    /**
+     * Constructor which draws the ground
+     */
     Ground()
     {
         glColor3d(139.0/255.0,69.0/255.0,19.0/255.0);
@@ -789,10 +861,6 @@ public:
         glScaled(0.03, 0.6, 0.05);
         glutSolidCube(1);
         glPopMatrix();
-
-
-
-
     }
 
     /**
@@ -955,7 +1023,6 @@ public:
 class Bench
 {
 public:
-
     /**
      * Function to create the wooden bench
      */
@@ -1155,14 +1222,9 @@ public:
         glutSolidCube(1);
         glPopMatrix();
 
-
-
-
-
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
 };
-
 
 #endif //SCENERY_PROPS_H
