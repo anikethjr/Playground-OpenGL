@@ -192,13 +192,17 @@ class Ground
         }
 };
 
+/**
+ * Class for creating a slide
+ */
 class Slide
 {
 public:
-//        GLUquadricObj *quadratic, *quadratic2;;
-//        quadratic = gluNewQuadric();
-//        quadratic2 = gluNewQuadric();
 
+    /**
+     * Function to create the slide
+     * @param inclination defines the inclination of the slide
+     */
     void create(double inclination) {
         base(inclination);
         stairs();
@@ -208,6 +212,10 @@ public:
 
     }
 
+    /**
+     * Function that defines the base of the slide
+     * @param inclination defines the inclination of the slide
+     */
     void base(double inclination) {
         // right edge
         glColor3d(255.0 / 255, 0, 0);
@@ -285,6 +293,9 @@ public:
         glPopMatrix();
     }
 
+    /**
+     * Function that defines the stairs/steps of the slide
+     */
     void stairs() {
         // right stairs edge
         glColor3d(255.0 / 255, 0, 0);
@@ -303,6 +314,9 @@ public:
         glPopMatrix();
     }
 
+    /**
+     * Function that defines the bars for the stairs/steps of the slide
+     */
     void bars() {
         // bars
         // bar 1
@@ -338,6 +352,9 @@ public:
         glPopMatrix();
     }
 
+    /**
+     * Function that defines the frame at the top of the slide
+     */
     void frame() {
 
         // frame
@@ -432,11 +449,12 @@ public:
         glPopMatrix();
     }
 
+    /**
+     * Function to create the borders of the slide
+     * @param inclination defines the inclination of the slide
+     */
     void line(double inclination) {
         glColor3d(0,0,0);
-//        GLUquadricObj *quadratic, *quadratic2;
-//        quadratic = gluNewQuadric();
-//        quadratic2 = gluNewQuadric();
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         // right edge
@@ -622,18 +640,26 @@ public:
     }
 };
 
+/**
+ * Class for creating a monkey bar
+ */
 class MonkeyBar
 {
 public:
-    void create()
-    {
+
+    /**
+     * Function to create the monkey bar
+     */
+    void create() {
         frame();
         bars();
         line();
     }
 
-    void frame()
-    {
+    /**
+     * Function that defines the frame of the monkey bar
+     */
+    void frame() {
         // frame
         // frame right edge
         glColor3d(9/255.0, 71/255.0, 42/255.0);
@@ -686,8 +712,10 @@ public:
 
     }
 
-    void bars()
-    {
+    /**
+     * Function to add the bars in the frame
+     */
+    void bars() {
         // bars
         glColor3d(53/255.0, 64/255.0, 86/255.0);
         glPushMatrix();
@@ -739,8 +767,10 @@ public:
         glPopMatrix();
     }
 
-    void line()
-    {
+    /**
+     * Function to create the borders of the monkey bar
+     */
+    void line() {
         glColor3d(0,0,0);
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -832,6 +862,221 @@ public:
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+    }
+
+};
+
+/**
+ * Class for creating a wooden bench
+ */
+class Bench
+{
+public:
+
+    /**
+     * Function to create the wooden bench
+     */
+    void create() {
+        base();
+        line();
+    }
+
+    /**
+     * Function that defines the base and the seat of the bench
+     */
+    void base() {
+        // base right legs
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0, 0, 0);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0.5, 0, 0);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // right joiner
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0.25, 0.175, 0);
+        glScaled(0.55, 0.05, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // base left legs
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0, 0, -1);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0.5, 0, -1);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // left joiner
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0.25, 0.175, -1);
+        glScaled(0.55, 0.05, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // seat
+        glColor3d(124/255.0, 90/255.0, 4/255.0);
+        glPushMatrix();
+        glTranslated(0.05, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.12, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.19, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.26, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.33, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.4, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.47, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+    }
+
+    /**
+     * Function to create the borders of the bench
+     */
+    void line() {
+        glColor3d(0,0,0);
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        // base right legs
+        glPushMatrix();
+        glTranslated(0, 0, 0);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        glPushMatrix();
+        glTranslated(0.5, 0, 0);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // right joiner
+        glPushMatrix();
+        glTranslated(0.25, 0.175, 0);
+        glScaled(0.55, 0.05, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // base left legs
+        glPushMatrix();
+        glTranslated(0, 0, -1);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        glPushMatrix();
+        glTranslated(0.5, 0, -1);
+        glScaled(0.05, 0.3, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // left joiner
+        glPushMatrix();
+        glTranslated(0.25, 0.175, -1);
+        glScaled(0.55, 0.05, 0.05);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // seat
+        glPushMatrix();
+        glTranslated(0.05, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.12, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.19, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.26, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.33, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.4, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.47, 0.225, -0.5);
+        glScaled(0.05, 0.05, -1.3);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+
+
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
 };
