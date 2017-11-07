@@ -6,7 +6,7 @@ using namespace glm;
 using namespace std;
 
 Camera cam;
-double left_swing_angle=0, right_swing_angle=0;
+double left_swing_angle=0, right_swing_angle=0, inclination = 45.0;
 double merryGoRound_rotate = 0;
 
 void renderScene(void)
@@ -32,6 +32,23 @@ void renderScene(void)
     glRotated(90,0,1,0);
     glScaled(1.5,1.5,1.5);
     Swing s(left_swing_angle,right_swing_angle);
+    glPopMatrix();
+
+    // Place slide
+    glPushMatrix();
+    glTranslated(2,0,-1);
+    glRotatef(75, 0, 1, 0);
+    Slide slide;
+    slide.create(inclination);
+    glPopMatrix();
+
+    // Place and scale monkey bar
+    glPushMatrix();
+    glTranslatef(-1.3, 0.51, -0.91); // change this later accordingly
+    glRotatef(-75, 0, 1, 0);
+    glScaled(1.5,1.5,1.5);
+    MonkeyBar mb;
+    mb.create();
     glPopMatrix();
 
     glEnd();
@@ -118,6 +135,10 @@ void keyPress(unsigned char key,int x,int y)
         //Top view
         case 't':
             cam.set(Point(0,5,0),Point(0,0,0),Vector(0,0,-1));
+            return;
+        //Back view
+        case 'b':
+            cam.set(Point(-1,0,-5),Point(-1,0,0),Vector(0,1,0));
             return;
         default:
             return;
