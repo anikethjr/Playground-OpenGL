@@ -12,6 +12,16 @@
 using namespace glm;
 using namespace std;
 
+/**
+ * Draws a solid cylinder of specified dimensions at origin
+ * @param BASE_INNER inner radius of base
+ * @param TOP_INNER inner radius of top
+ * @param BASE_OUTER outer radius of base
+ * @param TOP_OUTER outer radius of top
+ * @param HEIGHT height of the cylinder
+ * @param SLICES number of slides to be broken into
+ * @param STACKS number of stacks to be broken into
+ */
 void glutSolidCylinder(double BASE_INNER,double TOP_INNER,double BASE_OUTER,double TOP_OUTER,double HEIGHT,int SLICES,int STACKS)
 {
     GLUquadric* cylinder = gluNewQuadric();
@@ -26,170 +36,243 @@ void glutSolidCylinder(double BASE_INNER,double TOP_INNER,double BASE_OUTER,doub
     glTranslated(0.0, 0.0, -HEIGHT);
 }
 
-void glutWireCylinder(double BASE,double TOP,double HEIGHT,int SLICES,int STACKS)
-{
-    GLUquadric* cylinder = gluNewQuadric();
-    GLUquadric* base = gluNewQuadric();
-    GLUquadric* top = gluNewQuadric();
-    glColor3d(0,0,0);
-    gluCylinder(cylinder, BASE, TOP, HEIGHT, SLICES, STACKS);
-    glRotated(180, 1, 0, 0);
-    gluDisk(base, BASE, BASE+0.01, SLICES, 1);
-    glRotated(180, 1, 0, 0);
-    glTranslated(0.0, 0.0, HEIGHT);
-    gluDisk(top, TOP, TOP+0.01, SLICES, 1);
-    glTranslated(0.0, 0.0, -HEIGHT);
-}
+class Swing {
+public:
+    Swing(double left_swing_angle, double right_swing_angle) {
+        solid();
+        border();
+    }
 
-class Swing
-{
-    public:
-        Swing(double left_swing_angle, double right_swing_angle)
-        {
-            glColor3d(255.0/255,0,0);
+    void solid() {
+        glColor3d(255.0 / 255, 0, 0);
+        //Left bars
+        glPushMatrix();
+        glTranslated(0, 0, 0);
+        glRotated(-20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
 
-            //Left bars
-            glPushMatrix();
-            glTranslated(0,0,0);
-            glRotated(-20,0,0,1);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(1);
-            glPopMatrix();
+        glPushMatrix();
+        glTranslated(0.17, 0, 0);
+        glRotated(20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
 
-            glPushMatrix();
-            glTranslated(0.17,0,0);
-            glRotated(20,0,0,1);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(1);
-            glPopMatrix();
+        //Right bars
+        glPushMatrix();
+        glTranslated(0, 0, -0.75);
+        glRotated(-20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
 
-            //Right bars
-            glPushMatrix();
-            glTranslated(0,0,-0.75);
-            glRotated(-20,0,0,1);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(1);
-            glPopMatrix();
+        glPushMatrix();
+        glTranslated(0.17, 0, -0.75);
+        glRotated(20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
 
-            glPushMatrix();
-            glTranslated(0.17,0,-0.75);
-            glRotated(20,0,0,1);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(1);
-            glPopMatrix();
+        //Top rod
+        glPushMatrix();
+        glTranslated(0.09, 0.23, -0.375);
+        glScaled(0.01, 0.01, 0.5);
+        glutSolidCube(1.5);
+        glPopMatrix();
 
-            //Top rod
-            glPushMatrix();
-            glTranslated(0.09,0.23,-0.375);
-            glScaled(0.01,0.01,0.5);
-            glutSolidCube(1.5);
-            glPopMatrix();
+        //Chains
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
 
-            //Chains
-            glColor3d(0,0,0);
-            glPushMatrix();
-            glTranslated(0.09,0.05,-0.1);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(0.75);
-            glPopMatrix();
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.25);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
 
-            glColor3d(0,0,0);
-            glPushMatrix();
-            glTranslated(0.09,0.05,-0.25);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(0.75);
-            glPopMatrix();
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.5);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
 
-            glColor3d(0,0,0);
-            glPushMatrix();
-            glTranslated(0.09,0.05,-0.5);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(0.75);
-            glPopMatrix();
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.65);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
 
-            glColor3d(0,0,0);
-            glPushMatrix();
-            glTranslated(0.09,0.05,-0.65);
-            glScaled(0.01,0.5,0.01);
-            glutSolidCube(0.75);
-            glPopMatrix();
+        //Seats
+        glColor3d(255.0 / 255.0, 255.0 / 255.0, 17.0 / 255.0);
+        glPushMatrix();
+        glTranslated(0.09, -0.14, -0.575);
+        glScaled(0.25, 0.01, 0.33);
+        glutSolidCube(0.5);
+        glPopMatrix();
 
-            //Seats
-            glColor3d(255.0/255.0, 255.0/255.0, 17.0/255.0);
-            glPushMatrix();
-            glTranslated(0.09,-0.14,-0.575);
-            glScaled(0.25,0.01,0.33);
-            glutSolidCube(0.5);
-            glPopMatrix();
+        glColor3d(255.0 / 255.0, 255.0 / 255.0, 17.0 / 255.0);
+        glPushMatrix();
+        glTranslated(0.09, -0.14, -0.175);
+        glScaled(0.25, 0.01, 0.33);
+        glutSolidCube(0.5);
+        glPopMatrix();
+    }
+    void border()
+    {
+        glColor3d(0,0,0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPushMatrix();
+        //Left bars
+        glPushMatrix();
+        glTranslated(0, 0, 0);
+        glRotated(-20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
 
-            glColor3d(255.0/255.0, 255.0/255.0, 17.0/255.0);
-            glPushMatrix();
-            glTranslated(0.09,-0.14,-0.175);
-            glScaled(0.25,0.01,0.33);
-            glutSolidCube(0.5);
-            glPopMatrix();
-        }
+        glPushMatrix();
+        glTranslated(0.17, 0, 0);
+        glRotated(20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        //Right bars
+        glPushMatrix();
+        glTranslated(0, 0, -0.75);
+        glRotated(-20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.17, 0, -0.75);
+        glRotated(20, 0, 0, 1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        //Top rod
+        glPushMatrix();
+        glTranslated(0.09, 0.23, -0.375);
+        glScaled(0.01, 0.01, 0.5);
+        glutSolidCube(1.5);
+        glPopMatrix();
+
+        //Chains
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.1);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
+
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.25);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
+
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.5);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
+
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated(0.09, 0.05, -0.65);
+        glScaled(0.01, 0.5, 0.01);
+        glutSolidCube(0.75);
+        glPopMatrix();
+
+        //Seats
+        glPushMatrix();
+        glTranslated(0.09, -0.14, -0.575);
+        glScaled(0.25, 0.01, 0.33);
+        glutSolidCube(0.5);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslated(0.09, -0.14, -0.175);
+        glScaled(0.25, 0.01, 0.33);
+        glutSolidCube(0.5);
+        glPopMatrix();
+        glPopMatrix();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
 };
 
 class MerryGoRound
 {
-    public:
-        MerryGoRound()
-        {
-            //Solid Shapes
-            //Base
-            glColor3d(86.0/255.0, 49.0/255.0, 168.0/255.0);
-            glPushMatrix();
-            glRotated(90,1,0,0);
-            glutSolidCylinder(0,0,0.5,0.5,0.1,32,32);
-            glPopMatrix();
-            glPushMatrix();
-            glColor3d(255.0/255.0, 255.0/255.0, 255.0/255.0);
-            glRotated(90,1,0,0);
-            glutSolidCylinder(0.5,0.5,0.55,0.55,0.01,32,32);
-            glPopMatrix();
+public:
+    MerryGoRound()
+    {
+        //Solid Shapes
+        //Base
+        glColor3d(86.0/255.0, 49.0/255.0, 168.0/255.0);
+        glPushMatrix();
+        glRotated(90,1,0,0);
+        glutSolidCylinder(0,0,0.5,0.5,0.1,32,32);
+        glPopMatrix();
+        glPushMatrix();
+        glColor3d(255.0/255.0, 255.0/255.0, 255.0/255.0);
+        glRotated(90,1,0,0);
+        glutSolidCylinder(0.5,0.5,0.55,0.55,0.01,32,32);
+        glPopMatrix();
 
-            //Bars
-            glColor3d(0.0/255.0, 0.0/255.0, 0.0/255.0);
-            //Central bar
+        //Bars
+        glColor3d(0.0/255.0, 0.0/255.0, 0.0/255.0);
+        //Central bar
+        glPushMatrix();
+        glTranslated(0,0.14,0);
+        glScaled(0.01,0.3,0.01);
+        glutSolidCube(1);
+        glPopMatrix();
+        //Horizontal and vertical bars
+        for(int i=0;i<6;i++)
+        {
+            glColor3d(111.0/255.0, 124.0/255.0, 122.0/255.0);
             glPushMatrix();
-            glTranslated(0,0.14,0);
+            glRotated(i*60,0,1,0);
+            glTranslated(0.2,0.285,0);
+            glScaled(0.4,0.01,0.01);
+            glutSolidCube(1);
+            glPopMatrix();
+            glPushMatrix();
+            glRotated(i*60,0,1,0);
+            glTranslated(0.4,0.14,0);
             glScaled(0.01,0.3,0.01);
             glutSolidCube(1);
             glPopMatrix();
-            //Horizontal and vertical bars
-            for(int i=0;i<6;i++)
-            {
-                glColor3d(111.0/255.0, 124.0/255.0, 122.0/255.0);
-                glPushMatrix();
-                glRotated(i*60,0,1,0);
-                glTranslated(0.2,0.285,0);
-                glScaled(0.4,0.01,0.01);
-                glutSolidCube(1);
-                glPopMatrix();
-                glPushMatrix();
-                glRotated(i*60,0,1,0);
-                glTranslated(0.4,0.14,0);
-                glScaled(0.01,0.3,0.01);
-                glutSolidCube(1);
-                glPopMatrix();
-            }
         }
+    }
 };
 
 class Ground
 {
-    public:
-        Ground()
-        {
-            glColor3d(139.0/255.0,69.0/255.0,19.0/255.0);
-            glPushMatrix();
-            glTranslated(0,-0.87,0);
-            glScaled(2,0.2,2);
-            glutSolidCube(5);
-            glPopMatrix();
+public:
+    Ground()
+    {
+        glColor3d(139.0/255.0,69.0/255.0,19.0/255.0);
+        glPushMatrix();
+        glTranslated(0,-0.87,0);
+        glScaled(2,0.2,2);
+        glutSolidCube(5);
+        glPopMatrix();
 
-        }
+    }
 };
 
 class Slide

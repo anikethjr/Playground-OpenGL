@@ -44,7 +44,7 @@ void renderScene(void)
 
     // Place and scale monkey bar
     glPushMatrix();
-    glTranslatef(-1.3, 0.51, -0.91); // change this later accordingly
+    glTranslatef(-1.3, 0.52, -0.91); // change this later accordingly
     glRotatef(-75, 0, 1, 0);
     glScaled(1.5,1.5,1.5);
     MonkeyBar mb;
