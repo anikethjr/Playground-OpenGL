@@ -16,27 +16,43 @@ void renderScene(void)
     glEnable (GL_DEPTH_TEST);
     glDisable (GL_LIGHTING);
 
-    //Draw the ground
-    Ground g;
+//    //Draw the ground
+//    Ground g;
+//
+//    //Place and scale merry-go-round
+//    glPushMatrix();
+//    glTranslated(-2.0,-0.25,1);
+//    glRotated(merryGoRound_rotate,0,1,0);
+//    MerryGoRound m;
+//    glPopMatrix();
+//
+//    //Place and scale swing
+//    glPushMatrix();
+//    glTranslated(1,0,-1);
+//    glRotated(90,0,1,0);
+//    glScaled(1.5,1.5,1.5);
+//    Swing s(left_swing_angle,right_swing_angle);
+//    glPopMatrix();
+//
+//    // Place slide
+//    glPushMatrix();
+//    glTranslated(2,0,-1);
+//    glRotatef(75, 0, 1, 0);
+//    Slide slide;
+//    slide.create(inclination);
+//    glPopMatrix();
+//
+//    // Place and scale monkey bar
+//    glPushMatrix();
+//    glTranslatef(-1.3, 0.51, -0.91); // change this later accordingly
+//    glRotatef(-75, 0, 1, 0);
+//    glScaled(1.5,1.5,1.5);
+//    MonkeyBar mb;
+//    mb.create();
+//    glPopMatrix();
 
-    //Place and scale merry-go-round
     glPushMatrix();
-    glTranslated(-2.0,-0.25,1);
-    glRotated(merryGoRound_rotate,0,1,0);
-    MerryGoRound m;
-    glPopMatrix();
-
-    //Place and scale swing
-    glPushMatrix();
-    glTranslated(1,0,-1);
-    glRotated(90,0,1,0);
-    glScaled(1.5,1.5,1.5);
-    Swing s(left_swing_angle,right_swing_angle);
-    glPopMatrix();
-
-    // Place slide
-    glPushMatrix();
-    glTranslated(2,0,-1);
+    glTranslatef(-1.3, 0.51, -0.91);
     glRotatef(75, 0, 1, 0);
     Slide slide;
     slide.create(inclination);
@@ -49,6 +65,16 @@ void renderScene(void)
     glScaled(1.5,1.5,1.5);
     MonkeyBar mb;
     mb.create();
+    Bench bench;
+    bench.create();
+    glPopMatrix();
+
+    //Place and scale bench
+    glPushMatrix();
+    glTranslatef(-1.3, 0.51, -0.91);
+    glRotatef(75, 0, 1, 0);
+    Bench bench;
+    bench.create();
     glPopMatrix();
 
     glEnd();
