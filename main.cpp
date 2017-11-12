@@ -1,14 +1,14 @@
 #include "primitives.h"
 #include "camera.h"
 #include "props.h"
+#include "Parser.h"
 
-using namespace glm;
 using namespace std;
 
 Camera cam;
 double slide_inclination = 45.0;
 double merryGoRound_rotate = 0;
-
+Model* modcu;
 /**
  * Function which assembles the various objects and creates the scene
  */
@@ -16,9 +16,6 @@ void renderScene()
 {
     //Clear screen
     glClear  (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable (GL_DEPTH_TEST);
-    glDisable (GL_LIGHTING);
-
     //Draw the ground
     Ground g;
 
@@ -61,6 +58,7 @@ void renderScene()
     Bench bench;
     bench.create();
     glPopMatrix();
+    modcu->draw();
 
     glEnd();
 
@@ -156,6 +154,26 @@ void keyPress(unsigned char key,int x,int y)
     glutPostRedisplay();
 }
 
+void light()
+{
+	GLfloat mat_specular[] = {0.1, 0.1, 0.1, 1.0};
+   	GLfloat mat_emission[] = {0.0, 0.0, 0.0, 1.0};
+   	GLfloat light_position[] = {1.0, 2.0, 1.0, 1.0};
+	GLfloat light_ambient[] = {0.0, 0.0, 0.0, 1.0};
+	GLfloat light_diffuse[] = {0.8, 0.8, 0.8, 1.0};
+	GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0};
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+   	glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+   	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);	
+   	glEnable(GL_LIGHTING);
+   	glEnable(GL_LIGHT0);
+}
+
 int main()
 {
     // init GLUT and create Window
@@ -166,18 +184,18 @@ int main()
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutCreateWindow("Scenery");
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL); //Enables color
-
+    glShadeModel (GL_SMOOTH);
+    modcu = new Model("cart.obj", "cart.mtl");
     // register callbacks
     glutDisplayFunc(renderScene);
     glutIdleFunc(idle);
     glutKeyboardFunc(keyPress);
-
+    //light the scene
+    light();
     // setup camera
     glClearColor(135.0/255.0,206.0/255.0,250.0/255.0,1.0);
     cam.setupPosition(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
     cam.setupProperties(45,928.00/696.00,0.1, 50.0);
-
     // enter GLUT event processing cycle
     glutMainLoop();
 

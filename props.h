@@ -142,7 +142,7 @@ public:
     void border()
     {
         glColor3d(0,0,0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         //Left bars
         glPushMatrix();
         glTranslated(0, 0, 0);
