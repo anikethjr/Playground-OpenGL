@@ -164,9 +164,9 @@ void light()
 	GLfloat mat_specular[] = {0.0, 0.0, 0.0, 1.0};
    	GLfloat mat_emission[] = {0.0, 0.0, 0.0, 1.0};
    	GLfloat light_position[] = {1.0, 2.0, 1.0, 1.0};
-	GLfloat light_ambient[] = {0.0, 0.0, 0.0, 1.0};
-	GLfloat light_diffuse[] = {0.8, 0.8, 0.8, 1.0};
-	GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat light_ambient[] = {0.8, 0.8, 0.8, 1.0};
+	GLfloat light_diffuse[] = {0.0, 0.0, 0.0, 1.0};
+	GLfloat light_specular[] = {0.2, 0.2, 0.2, 1.0};
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -196,7 +196,7 @@ int main()
     glutIdleFunc(idle);
     glutKeyboardFunc(keyPress);
     //light the scene
-//    light();
+    light();
     // setup camera
     glClearColor(135.0/255.0,206.0/255.0,250.0/255.0,1.0);
     cam.setupPosition(dvec3(-1,0,5),dvec3(-1,0,0),dvec3(0,1,0));
