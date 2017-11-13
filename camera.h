@@ -8,6 +8,10 @@
 #include <GL/glut.h>
 #include <GL/glu.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 #define PI 3.14159265
 
@@ -17,7 +21,7 @@ using namespace std;
 class Camera
 {
     private:
-        dvec3 eye, look;
+        dvec3 position, target;
         dvec3 up, u, v, n;
         /**
          * Sets up OpenGL's modelview matrix
@@ -31,11 +35,11 @@ class Camera
         Camera();
         /**
          * Sets up the position of the camera
-         * @param eye Position of the eye
-         * @param look dvec3 to look at from the eye
+         * @param position Position of the eye
+         * @param target Point to look at from the eye
          * @param up The look-up vector
          */
-        void setupPosition(dvec3 eye, dvec3 look, dvec3 up);
+        void setupPosition(dvec3 position, dvec3 target, dvec3 up);
         /**
          * Sets up various camera properties
          * @param viewAngle Viewing angle

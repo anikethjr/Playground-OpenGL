@@ -161,11 +161,11 @@ void keyPress(unsigned char key,int x,int y)
 
 void light()
 {
-	GLfloat mat_specular[] = {0.0, 0.0, 0.0, 1.0};
-   	GLfloat mat_emission[] = {0.0, 0.0, 0.0, 1.0};
+	GLfloat mat_specular[] = {0.1, 0.2, 0.1, 1.0};
+   	GLfloat mat_emission[] = {0.1, 0.2, 0.1, 1.0};
    	GLfloat light_position[] = {1.0, 2.0, 1.0, 1.0};
 	GLfloat light_ambient[] = {0.8, 0.8, 0.8, 1.0};
-	GLfloat light_diffuse[] = {0.0, 0.0, 0.0, 1.0};
+	GLfloat light_diffuse[] = {0.2, 0.1, 0.3, 1.0};
 	GLfloat light_specular[] = {0.2, 0.2, 0.2, 1.0};
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
