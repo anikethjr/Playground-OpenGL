@@ -26,9 +26,15 @@ void renderScene()
     w.create();
     glPopMatrix();
 
+    //Place the path within the park
+    glPushMatrix();
+    Path p;
+    p.create();
+    glPopMatrix();
+
     //Place and scale merry-go-round
     glPushMatrix();
-    glTranslated(-2.0,-0.25,1);
+    glTranslated(-2.5,-0.25,3.5);
     glRotated(merryGoRound_rotate,0,1,0);
     MerryGoRound m;
     glPopMatrix();
@@ -39,12 +45,6 @@ void renderScene()
     glRotated(90,0,1,0);
     glScaled(1.5,1.5,1.5);
     Swing s;
-    glPopMatrix();
-
-    //Place the path within the park
-    glPushMatrix();
-    Path p;
-    p.create();
     glPopMatrix();
 
     // Place slide

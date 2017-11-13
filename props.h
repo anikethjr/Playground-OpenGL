@@ -1357,15 +1357,32 @@ public:
         glRotated(90,1,0,0);
         glutSolidCylinder(0,0,30,30,0.3,32,32);
         glPopMatrix();
-        line();
 
-        //forward lane
-        glColor3d(1/255.0, 1/255.0, 243/255.0);
+
+        //side lanes
+        glColor3d(255/255.0, 255/255.0, 2/255.0);
         glPushMatrix();
-        glTranslated(-1, 0, 0);
-        glScaled(0.1, 0.3, 0.5);
+        glTranslated(0, -0.34, 0);
+        glScaled(10, 0.1, 1.3);
         glutSolidCube(1);
         glPopMatrix();
+
+
+        //front back lanes
+        glColor3d(255/255.0, 255/255.0, 2/255.0);
+        glPushMatrix();
+        glTranslated(0, -0.34, 0);
+        glScaled(1.3, 0.1, 10);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+
+
+
+
+
+
         line();
 
     }
@@ -1380,12 +1397,21 @@ public:
         glutSolidCylinder(0,0,30,30,0.1,32,32);
         glPopMatrix();
 
-        //forward lane
+        //side lanes
         glPushMatrix();
-        glTranslated(-1, 0, 0);
-        glScaled(0.1, 0.3, 0.5);
+        glTranslated(0, -0.34, 0);
+        glScaled(10, 0.1, 1.3);
         glutSolidCube(1);
         glPopMatrix();
+
+
+        //front back lanes
+        glPushMatrix();
+        glTranslated(0, -0.34, 0);
+        glScaled(1.3, 0.1, 10);
+        glutSolidCube(1);
+        glPopMatrix();
+
 
 
     }
