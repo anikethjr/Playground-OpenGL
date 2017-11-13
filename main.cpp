@@ -58,7 +58,12 @@ void renderScene()
     Bench bench;
     bench.create();
     glPopMatrix();
+    
+    //Drawing the Blender model
+    glPushMatrix();
+    glTranslatef(0.0, -0.3, 3.0);
     modcu->draw();
+    glPopMatrix();
 
     glEnd();
 
@@ -156,7 +161,7 @@ void keyPress(unsigned char key,int x,int y)
 
 void light()
 {
-	GLfloat mat_specular[] = {0.1, 0.1, 0.1, 1.0};
+	GLfloat mat_specular[] = {0.0, 0.0, 0.0, 1.0};
    	GLfloat mat_emission[] = {0.0, 0.0, 0.0, 1.0};
    	GLfloat light_position[] = {1.0, 2.0, 1.0, 1.0};
 	GLfloat light_ambient[] = {0.0, 0.0, 0.0, 1.0};
@@ -185,7 +190,7 @@ int main()
     glutCreateWindow("Scenery");
     glEnable(GL_DEPTH_TEST);
     glShadeModel (GL_SMOOTH);
-    modcu = new Model("cart.obj", "cart.mtl");
+    modcu = new Model("model_3.obj", "model_3.mtl");
     // register callbacks
     glutDisplayFunc(renderScene);
     glutIdleFunc(idle);
