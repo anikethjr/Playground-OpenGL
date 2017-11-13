@@ -5,9 +5,9 @@
 
 Camera::Camera()
 {
-    eye = Point(0.0,0.0,5.0);
-    look = Point(0.0,0.0,0.0);
-    up = Vector(0,1,0);
+    eye = dvec3(0.0,0.0,5.0);
+    look = dvec3(0.0,0.0,0.0);
+    up = dvec3(0,1,0);
 
     setupPosition(eye,look,up);
     setupProperties(45.0f,928.00/696.00,0.1,50.0);
@@ -24,7 +24,7 @@ void Camera :: setupProperties(double viewAngle, double aspect, double nearDist,
 void Camera :: setModelViewMatrix()
 {
     double m[16];
-    Vector eVec(eye.x, eye.y, eye.z);
+    dvec3 eVec(eye.x, eye.y, eye.z);
     m[0]=u.x;
     m[1]=v.x;
     m[2]=n.x;
@@ -37,29 +37,29 @@ void Camera :: setModelViewMatrix()
     m[9]=v.z;
     m[10]=n.z;
     m[11]=0;
-    m[12]=-eVec.dot(u);
-    m[13]=-eVec.dot(v);
-    m[14]=-eVec.dot(n);
+    m[12]=-dot(eVec,u);
+    m[13]=-dot(eVec,v);
+    m[14]=-dot(eVec,n);
     m[15]=1.0;
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixd(m);
 }
 
-void Camera:: setupPosition(Point Eye, Point Look, Vector Up)
+void Camera::setupPosition(dvec3 Eye, dvec3 Look, dvec3 Up)
 {
-    eye.set(Eye);
-    look.set(Look);
-    up.set(Up);
-    n.set(difference(eye,look));
-    u.set(up.cross(n));
-    v.set(n.cross(u));
-    n.normalize();
-    u.normalize();
-    v.normalize();
+    eye = Eye;
+    look = Look;
+    up = Up;
+    n = eye-look;
+    u = cross(up,n);
+    v = cross(n,u);
+    n = normalize(n);
+    u = normalize(u);
+    v = normalize(v);
     setModelViewMatrix();
 }
 
-void Camera::move(Vector displacement)
+void Camera::move(dvec3 displacement)
 {
     eye.x += displacement.x * u.x + displacement.y * v.x + displacement.z * n.x;
     eye.y += displacement.x * u.y + displacement.y * v.y + displacement.z * n.y;
@@ -74,9 +74,9 @@ void Camera:: roll(double angle)
 {
     double cs= cos(PI/180 * angle);
     double sn= sin(PI/180 * angle);
-    Vector t(u);
-    u.set(cs* t.x - sn*v.x,cs*t.y - sn*v.y, cs*t.z - sn*v.z);
-    v.set(cs* v.x + sn*t.x,cs*v.y + sn*t.y, cs*v.z + sn*t.z);
+    dvec3 t = u;
+    u = dvec3(cs*t.x - sn*v.x,cs*t.y - sn*v.y, cs*t.z - sn*v.z);
+    v = dvec3(cs* v.x + sn*t.x,cs*v.y + sn*t.y, cs*v.z + sn*t.z);
     setModelViewMatrix();
 }
 
@@ -84,9 +84,9 @@ void Camera:: pitch(double angle)
 {
     double cs= cos(PI/180 * angle);
     double sn= sin(PI/180 * angle);
-    Vector t(v);
-    v.set(cs * t.x - sn * n.x,cs * t.y - sn * n.y, cs * t.z - sn * n.z);
-    n.set(cs * n.x + sn * v.x, cs * n.y + sn * v.y, cs * n.z + sn * v.z);
+    dvec3 t = v;
+    v = dvec3(cs * t.x - sn * n.x,cs * t.y - sn * n.y, cs * t.z - sn * n.z);
+    n = dvec3(cs * n.x + sn * v.x, cs * n.y + sn * v.y, cs * n.z + sn * v.z);
     setModelViewMatrix();
 }
 
@@ -94,8 +94,8 @@ void Camera:: yaw(double angle)
 {
     double cs= cos(PI/180 * angle);
     double sn= sin(PI/180 * angle);
-    Vector t(u);
-    u.set(cs* t.x + sn * n.x, cs* t.y + sn * n.y, cs* t.z + sn * n.z);
-    n.set(cs* n.x - sn* u.x, cs* n.y - sn* u.y, cs* n.z - sn* u.z);
+    dvec3 t = u;
+    u = dvec3(cs* t.x + sn * n.x, cs* t.y + sn * n.y, cs* t.z + sn * n.z);
+    n = dvec3(cs* n.x - sn* u.x, cs* n.y - sn* u.y, cs* n.z - sn* u.z);
     setModelViewMatrix();
 }

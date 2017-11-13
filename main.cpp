@@ -1,9 +1,9 @@
-#include "primitives.h"
 #include "camera.h"
 #include "props.h"
 #include "Parser.h"
 
 using namespace std;
+using namespace glm;
 
 Camera cam;
 double slide_inclination = 45.0;
@@ -91,27 +91,27 @@ void keyPress(unsigned char key,int x,int y)
     {
         //Move forward
         case 'w':
-            cam.move(Vector(0,0,-0.2));
+            cam.move(dvec3(0,0,-0.2));
             break;
         //Move back
         case 's':
-            cam.move(Vector(0,0,0.2));
+            cam.move(dvec3(0,0,0.2));
             break;
         //Move left
         case 'a':
-            cam.move(Vector(-0.2,0,0));
+            cam.move(dvec3(-0.2,0,0));
             break;
         //Move right
         case 'd':
-            cam.move(Vector(0.2,0,0));
+            cam.move(dvec3(0.2,0,0));
             break;
         //Move up
         case 'r':
-            cam.move(Vector(0,0.2,0));
+            cam.move(dvec3(0,0.2,0));
             break;
         //Move down
         case 'f':
-            cam.move(Vector(0,-0.2,0));
+            cam.move(dvec3(0,-0.2,0));
             break;
         //Look up
         case 'i':
@@ -139,19 +139,19 @@ void keyPress(unsigned char key,int x,int y)
             break;
         //Front view
         case 'g':
-            cam.setupPosition(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
+            cam.setupPosition(dvec3(-1,0,5),dvec3(-1,0,0),dvec3(0,1,0));
             return;
         //Right view
         case 'h':
-            cam.setupPosition(Point(5,0,0),Point(0,0,0),Vector(0,1,0));
+            cam.setupPosition(dvec3(5,0,0),dvec3(0,0,0),dvec3(0,1,0));
             return;
         //Top view
         case 't':
-            cam.setupPosition(Point(0,5,0),Point(0,0,0),Vector(0,0,-1));
+            cam.setupPosition(dvec3(0,5,0),dvec3(0,0,0),dvec3(0,0,-1));
             return;
         //Back view
         case 'b':
-            cam.setupPosition(Point(-1,0,-5),Point(-1,0,0),Vector(0,1,0));
+            cam.setupPosition(dvec3(-1,0,-5),dvec3(-1,0,0),dvec3(0,1,0));
             return;
         default:
             return;
@@ -196,10 +196,10 @@ int main()
     glutIdleFunc(idle);
     glutKeyboardFunc(keyPress);
     //light the scene
-    light();
+//    light();
     // setup camera
     glClearColor(135.0/255.0,206.0/255.0,250.0/255.0,1.0);
-    cam.setupPosition(Point(-1,0,5),Point(-1,0,0),Vector(0,1,0));
+    cam.setupPosition(dvec3(-1,0,5),dvec3(-1,0,0),dvec3(0,1,0));
     cam.setupProperties(45,928.00/696.00,0.1, 50.0);
     // enter GLUT event processing cycle
     glutMainLoop();
