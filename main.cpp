@@ -8,7 +8,7 @@ using namespace glm;
 Camera cam;
 double slide_inclination = 45.0;
 double merryGoRound_rotate = 0;
-Model* modcu;
+Model *FerrisWheel, *Entrance;
 
 /**
  * Function which assembles the various objects and creates the scene
@@ -34,48 +34,113 @@ void renderScene()
 
     //Place and scale merry-go-round
     glPushMatrix();
-    glTranslated(-2.5,-0.25,3.5);
+    glTranslated(-2.7,-0.25,3.0);
     glRotated(merryGoRound_rotate,0,1,0);
     MerryGoRound m;
     glPopMatrix();
 
     //Place and scale swing
     glPushMatrix();
-    glTranslated(1,-0.014,-1);
+    glTranslated(3,-0.014,-3.2);
     glRotated(90,0,1,0);
-    glScaled(1.5,1.5,1.5);
+    glScaled(1.7,1.7,1.7);
     Swing s;
     glPopMatrix();
 
     // Place slide
     glPushMatrix();
-    glTranslated(2,0,-1);
-    glRotatef(75, 0, 1, 0);
+    glTranslated(3,0,2.5);
+    glRotatef(0, 0, 1, 0);
     Slide slide;
+    slide.create(slide_inclination);
+    glPopMatrix();
+
+    // Place slide
+    glPushMatrix();
+    glTranslated(3,0,3.5);
+    glRotatef(0, 0, 1, 0);
+    Slide slide2;
     slide.create(slide_inclination);
     glPopMatrix();
 
     // Place and scale monkey bar
     glPushMatrix();
-    glTranslatef(-1.3, 0.5121, -0.91);
+    glTranslated(-2.7, 0.5121, -3.1);
     glRotatef(-75, 0, 1, 0);
     glScaled(1.5,1.5,1.5);
     MonkeyBar mb;
     mb.create();
     glPopMatrix();
 
-    //Place and scale bench
+    //Place and scale benches
     glPushMatrix();
-    glTranslatef(1.7, -0.21, 1.2);
+    glTranslated(4.2, -0.21, 3);
     glRotatef(0, 0, 1, 0);
-    Bench bench;
-    bench.create();
+    Bench bench1;
+    bench1.create();
     glPopMatrix();
 
-    //Drawing the Blender model
     glPushMatrix();
-    glTranslatef(0.0, -0.3, 3.0);
-    modcu->draw();
+    glTranslated(4.2, -0.21, -3);
+    glRotatef(0, 0, 1, 0);
+    Bench bench2;
+    bench2.create();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(-4.7, -0.21, -3);
+    glRotatef(0, 0, 1, 0);
+    Bench bench3;
+    bench3.create();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(-4.7, -0.21, 3);
+    glRotatef(0, 0, 1, 0);
+    Bench bench4;
+    bench4.create();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-3.1, -0.21, 1.4);
+    glRotatef(90, 0, 1, 0);
+    Bench bench5;
+    bench5.create();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(3.3, -0.21, -1.25);
+    glRotatef(90, 0, 1, 0);
+    Bench bench6;
+    bench6.create();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(3.3, -0.21, 1.4);
+    glRotatef(90, 0, 1, 0);
+    Bench bench7;
+    bench7.create();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-3.1, -0.21, -1.25);
+    glRotatef(90, 0, 1, 0);
+    Bench bench8;
+    bench8.create();
+    glPopMatrix();
+
+    //Drawing the Ferris Wheel
+    glPushMatrix();
+    glTranslated(0.0, -0.3, 0);
+    FerrisWheel->draw();
+    glPopMatrix();
+
+    //Drawing the entrance banner
+    glPushMatrix();
+    glTranslated(0.0,0.0,6.2);
+    glRotated(270,0,1,0);
+    glScaled(2.5,2.5,2.5);
+    Entrance->draw();
     glPopMatrix();
 
     glEnd();
@@ -152,7 +217,7 @@ void keyPress(unsigned char key,int x,int y)
             break;
         //Front view
         case 'g':
-            cam.setupPosition(dvec3(-1,0,5),dvec3(-1,0,0),dvec3(0,1,0));
+            cam.setupPosition(dvec3(-1,0,10),dvec3(-1,0,0),dvec3(0,1,0));
             return;
         //Right view
         case 'h':
@@ -179,10 +244,10 @@ void light()
 {
 	GLfloat mat_specular[] = {0.1, 0.2, 0.1, 1.0};
    	GLfloat mat_emission[] = {0.1, 0.2, 0.1, 1.0};
-   	GLfloat light_position[] = {1.0, 2.0, 1.0, 1.0};
+   	GLfloat light_position[] = {1000.0, 1000.0, 10.0, 1.0};
 	GLfloat light_ambient[] = {0.8, 0.8, 0.8, 1.0};
-	GLfloat light_diffuse[] = {0.2, 0.1, 0.3, 1.0};
-	GLfloat light_specular[] = {0.2, 0.2, 0.2, 1.0};
+	GLfloat light_diffuse[] = {0.1, 0.1, 0.1, 1.0};
+	GLfloat light_specular[] = {0.001, 0.001, 0.001, 1.0};
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -206,7 +271,8 @@ int main()
     glutCreateWindow("Scenery");
     glEnable(GL_DEPTH_TEST);
     glShadeModel (GL_SMOOTH);
-    modcu = new Model("FerrisWheel.obj", "FerrisWheel.mtl");
+    FerrisWheel = new Model("FerrisWheel.obj", "FerrisWheel.mtl");
+    Entrance = new Model("Banner.obj","Banner.mtl");
     // register callbacks
     glutDisplayFunc(renderScene);
     glutIdleFunc(idle);
@@ -214,8 +280,8 @@ int main()
     //light the scene
     light();
     // setup camera
-    glClearColor(135.0/255.0,206.0/255.0,250.0/255.0,1.0);
-    cam.setupPosition(dvec3(-1,0,5),dvec3(-1,0,0),dvec3(0,1,0));
+    glClearColor(1, 153.0/255.0, 0,1);
+    cam.setupPosition(dvec3(-1,0,10),dvec3(-1,0,0),dvec3(0,1,0));
     cam.setupProperties(45,928.00/696.00,0.1, 50.0);
     // enter GLUT event processing cycle
     glutMainLoop();

@@ -439,7 +439,7 @@ public:
      */
     Ground()
     {
-        glColor3d(5.0/255.0,109/255.0,54.0/255.0);
+        glColor3d(0.0/255.0,200/255.0,0.0/255.0);
         glPushMatrix();
         glTranslated(0,-0.87,0);
         glScaled(2,0.2,2);
@@ -1358,31 +1358,19 @@ public:
         glutSolidCylinder(0,0,30,30,0.3,32,32);
         glPopMatrix();
 
-
         //side lanes
-        glColor3d(255/255.0, 255/255.0, 2/255.0);
         glPushMatrix();
         glTranslated(0, -0.34, 0);
         glScaled(10, 0.1, 1.3);
         glutSolidCube(1);
         glPopMatrix();
 
-
         //front back lanes
-        glColor3d(255/255.0, 255/255.0, 2/255.0);
         glPushMatrix();
         glTranslated(0, -0.34, 0);
         glScaled(1.3, 0.1, 10);
         glutSolidCube(1);
         glPopMatrix();
-
-
-
-
-
-
-
-
         line();
 
     }
