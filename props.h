@@ -1,6 +1,3 @@
-//
-// Created by anikethjr on 6/11/17.
-//
 #ifndef SCENERY_PROPS_H
 #define SCENERY_PROPS_H
 
@@ -35,6 +32,111 @@ void glutSolidCylinder(double BASE_INNER,double TOP_INNER,double BASE_OUTER,doub
     gluDisk(top, TOP_INNER, TOP_OUTER, SLICES, 1);
     glTranslated(0.0, 0.0, -HEIGHT);
 }
+
+/**
+ * Class for creating the surrounding walls of the park
+ */
+class Wall
+{
+public:
+    /**
+     * Function to create the wall
+     */
+    void create() {
+        // front wall
+        glColor3d(145/255.0, 112/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(-3.5, 0.001, 4.96);
+        glScaled(3,0.75,0.09);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // front wall
+        glColor3d(145/255.0, 112/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(3.5, 0.001, 4.96);
+        glScaled(3,0.75,0.09);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        // back wall
+        glColor3d(145/255.0, 112/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0, 0.001, -4.96);
+        glScaled(10,0.75,0.09);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        // right wall
+        glColor3d(145/255.0, 112/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(4.96, 0.001, 0);
+        glScaled(0.09,0.75,10);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+        // left wall
+        glColor3d(145/255.0, 112/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(-4.96, 0.001, 0);
+        glScaled(0.09,0.75,10);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        line();
+    }
+
+
+    /**
+     * Function to create the borders of the wall
+     */
+    void line() {
+        glColor3d(0,0,0);
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        // front wall
+        glPushMatrix();
+        glTranslated(-3.5, 0.001, 4.96);
+        glScaled(3,0.75,0.09);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // front wall
+        glPushMatrix();
+        glTranslated(3.5, 0.001, 4.96);
+        glScaled(3,0.75,0.09);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // back wall
+        glPushMatrix();
+        glTranslated(0, 0.001, -4.96);
+        glScaled(10,0.75,0.09);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // right wall
+        glPushMatrix();
+        glTranslated(4.96, 0.001, 0);
+        glScaled(0.09,0.75,10);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        // left wall
+        glPushMatrix();
+        glTranslated(-4.96, 0.001, 0);
+        glScaled(0.09,0.75,10);
+        glutSolidCube(1);
+        glPopMatrix();
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+};
 
 /**
  * Class which is used to draw a swing
@@ -337,12 +439,24 @@ public:
      */
     Ground()
     {
-        glColor3d(139.0/255.0,69.0/255.0,19.0/255.0);
+        glColor3d(5.0/255.0,109/255.0,54.0/255.0);
         glPushMatrix();
         glTranslated(0,-0.87,0);
         glScaled(2,0.2,2);
         glutSolidCube(5);
         glPopMatrix();
+
+        glColor3d(0,0,0);
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        glPushMatrix();
+        glTranslated(0,-0.87,0);
+        glScaled(2,0.2,2);
+        glutSolidCube(5);
+        glPopMatrix();
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     }
 };
@@ -1225,6 +1339,56 @@ public:
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
+};
+
+/**
+ * Class to draw the path within the park
+ */
+class Path
+{
+public:
+    void create()
+    {
+        // center cylinder
+        glColor3d(45/255.0, 45/255.0, 43/255.0);
+        glPushMatrix();
+        glTranslated(0, -0.28, 0);
+        glScaled(0.05, 0.3, 0.05);
+        glRotated(90,1,0,0);
+        glutSolidCylinder(0,0,30,30,0.3,32,32);
+        glPopMatrix();
+        line();
+
+        //forward lane
+        glColor3d(1/255.0, 1/255.0, 243/255.0);
+        glPushMatrix();
+        glTranslated(-1, 0, 0);
+        glScaled(0.1, 0.3, 0.5);
+        glutSolidCube(1);
+        glPopMatrix();
+        line();
+
+    }
+
+    void line()
+    {
+        // center cylinder
+        glPushMatrix();
+        glTranslated(0, -0.28, 0);
+        glScaled(0.05, 0.3, 0.05);
+        glRotated(90,1,0,0);
+        glutSolidCylinder(0,0,30,30,0.1,32,32);
+        glPopMatrix();
+
+        //forward lane
+        glPushMatrix();
+        glTranslated(-1, 0, 0);
+        glScaled(0.1, 0.3, 0.5);
+        glutSolidCube(1);
+        glPopMatrix();
+
+
+    }
 };
 
 #endif //SCENERY_PROPS_H

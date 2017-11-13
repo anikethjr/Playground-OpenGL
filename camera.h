@@ -49,18 +49,18 @@ class Camera
          */
         void setupProperties(double viewAngle, double aspect, double nearDist, double farDist);
         /**
-         * Rolls the camera by the specified angle
+         * Rotates the camera around the roll axis by the specified angle
          * @param angle angle to rotate by
          */
         void roll(double angle);
         /**
-         * Pitches the camera by the specified angle
-         * @param angle angle to pitch by
+         * Rotates the camera around the pitch axis by the specified angle
+         * @param angle angle to rotate by
          */
         void pitch(double angle);
         /**
-         * Yaws the camera by the specified angle
-         * @param angle angle to yaw by
+         * Rotates the camera around the yaw axis by the specified angle
+         * @param angle angle to rotate by
          */
         void yaw(double angle);
         /**

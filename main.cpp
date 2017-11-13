@@ -9,6 +9,7 @@ Camera cam;
 double slide_inclination = 45.0;
 double merryGoRound_rotate = 0;
 Model* modcu;
+
 /**
  * Function which assembles the various objects and creates the scene
  */
@@ -18,6 +19,12 @@ void renderScene()
     glClear  (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //Draw the ground
     Ground g;
+
+    // Place the surrounding walls of the park
+    glPushMatrix();
+    Wall w;
+    w.create();
+    glPopMatrix();
 
     //Place and scale merry-go-round
     glPushMatrix();
@@ -32,6 +39,12 @@ void renderScene()
     glRotated(90,0,1,0);
     glScaled(1.5,1.5,1.5);
     Swing s;
+    glPopMatrix();
+
+    //Place the path within the park
+    glPushMatrix();
+    Path p;
+    p.create();
     glPopMatrix();
 
     // Place slide
@@ -58,7 +71,7 @@ void renderScene()
     Bench bench;
     bench.create();
     glPopMatrix();
-    
+
     //Drawing the Blender model
     glPushMatrix();
     glTranslatef(0.0, -0.3, 3.0);
@@ -159,6 +172,9 @@ void keyPress(unsigned char key,int x,int y)
     glutPostRedisplay();
 }
 
+/**
+ * Adds lighting to the scene
+ */
 void light()
 {
 	GLfloat mat_specular[] = {0.1, 0.2, 0.1, 1.0};

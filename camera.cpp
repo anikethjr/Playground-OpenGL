@@ -62,18 +62,18 @@ void Camera:: roll(double angle)
 void Camera::move(dvec3 displacement)
 {
     position.x += displacement.x * u.x + displacement.y * v.x + displacement.z * n.x;
-    position.y += displacement.x * u.y + displacement.y * v.y + displacement.z * n.y;
-    position.z += displacement.x * u.z + displacement.y * v.z + displacement.z * n.z;
     target.x += displacement.x * u.x + displacement.y * v.x + displacement.z * n.x;
+    position.y += displacement.x * u.y + displacement.y * v.y + displacement.z * n.y;
     target.y += displacement.x * u.y + displacement.y * v.y + displacement.z * n.y;
+    position.z += displacement.x * u.z + displacement.y * v.z + displacement.z * n.z;
     target.z += displacement.x * u.z + displacement.y * v.z + displacement.z * n.z;
     setModelViewMatrix();
 }
 
 void Camera:: yaw(double angle)
 {
-    dvec3 t = u;
-    u = dvec3(cos(radians(angle))* t.x + sin(radians(angle)) * n.x, cos(radians(angle))* t.y + sin(radians(angle)) * n.y, cos(radians(angle))* t.z + sin(radians(angle)) *n.z);
+    dvec3 temp = u;
+    u = dvec3(cos(radians(angle))* temp.x + sin(radians(angle)) * n.x, cos(radians(angle))* temp.y + sin(radians(angle)) * n.y, cos(radians(angle))* temp.z + sin(radians(angle)) *n.z);
     n = dvec3(cos(radians(angle))* n.x - sin(radians(angle))* u.x, cos(radians(angle))* n.y - sin(radians(angle))* u.y, cos(radians(angle))* n.z - sin(radians(angle))* u.z);
     setModelViewMatrix();
 }
