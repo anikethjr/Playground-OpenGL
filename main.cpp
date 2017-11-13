@@ -190,7 +190,7 @@ int main()
     glutCreateWindow("Scenery");
     glEnable(GL_DEPTH_TEST);
     glShadeModel (GL_SMOOTH);
-    modcu = new Model("model_3.obj", "model_3.mtl");
+    modcu = new Model("FerrisWheel.obj", "FerrisWheel.mtl");
     // register callbacks
     glutDisplayFunc(renderScene);
     glutIdleFunc(idle);
