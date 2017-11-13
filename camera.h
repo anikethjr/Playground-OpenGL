@@ -8,7 +8,6 @@
 #include <GL/glut.h>
 #include <GL/glu.h>
 #include <glm/glm.hpp>
-#include "primitives.h"
 
 #define PI 3.14159265
 
@@ -18,8 +17,8 @@ using namespace std;
 class Camera
 {
     private:
-        Point eye, look;
-        Vector up, u, v, n;
+        dvec3 eye, look;
+        dvec3 up, u, v, n;
         /**
          * Sets up OpenGL's modelview matrix
          */
@@ -33,10 +32,10 @@ class Camera
         /**
          * Sets up the position of the camera
          * @param eye Position of the eye
-         * @param look Point to look at from the eye
+         * @param look dvec3 to look at from the eye
          * @param up The look-up vector
          */
-        void setupPosition(Point eye, Point look, Vector up);
+        void setupPosition(dvec3 eye, dvec3 look, dvec3 up);
         /**
          * Sets up various camera properties
          * @param viewAngle Viewing angle
@@ -64,7 +63,7 @@ class Camera
          * Moves the camera by adding the given displacement
          * @param displacement Displacement vector which specifies additions to the camera position
          */
-        void move(Vector displacement);
+        void move(dvec3 displacement);
 };
 
 #endif //SCENERY_CAMERA_H
