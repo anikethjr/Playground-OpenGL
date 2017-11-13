@@ -59,16 +59,19 @@ table, th, td {
                         <a href="#intro">Introduction</a>
                     </li>
                     <li>
-                        <a href="#tidy">Camera Setup</a>
+                        <a href="#camsetup">Camera Setup</a>
                     </li>
                     <li>
-                        <a href="#tidier">Making the Props using OpenGL</a>
+                        <a href="#props">Props using OpenGL</a>
                     </li>                    
 					<li>
-                        <a href="#analysis">Blender Models</a>
+                        <a href="#models">Blender Models</a>
                     </li>
                     <li>
-                        <a href="#problems">Results</a>
+                        <a href="#parser">The Parser</a>
+                    </li>
+                    <li>
+                        <a href="#results">Results</a>
                     </li>
                     <li>
                         <a href="#problems">Speedbreakers</a>
@@ -107,7 +110,7 @@ table, th, td {
                 <div class="post-preview">
                     
                         <h2 class="post-title" id="intro">
-                            <strong>Introduction</strong>
+                            Introduction
                         </h2>
                         <p class="post-subtitle" style="text-align:justify;">
                             OpenGL is a cross-platform graphics API that is widely used for rendering 2D and 3D graphics. It was first introduced in 1992 and was quickly adopted as the standard rendering interface. In this project, KAT Systems built a playground using OpenGL and GLUT, a wrapper for OpenGL which can be used to easily create primitives. 
@@ -116,10 +119,9 @@ table, th, td {
                    
                 </div>
                 <hr>
-                <div class="post-preview">
-                   
-                        <h2 class="post-title" id="tidy">
-                            <strong>Camera Setup</strong>
+                <div class="post-preview">                   
+                        <h2 class="post-title" id="camsetup">
+                            Camera Setup
                         </h2>
                     <p class="post-subtitle" style="text-align:justify;">
                         Various camera based operations are defined in the camera.h file. We used the GLM package to optimize vector and matrix operations. The camera is first setup by specifying its position, the point it is looking at and the up vector required to define the view coordinate system. Various other properties like aspect ratio, near distance and far distance are also specified. The position is specified using the setupPosition function and other properties are set using the setProperties function. After finishing the setup, various operations can be performed using the camera. In our model, you can use the keyboard to move the camera around using the move function. The pitch, yaw and roll functions allow you to rotate the camera about the various axes. Finally, the setModelViewMatrix function is used by the various functions to update the view coordinate system. 
@@ -129,108 +131,44 @@ table, th, td {
                 <hr>
                 <div class="post-preview">
                    
-                        <h2 class="post-title" id="tidy">
-                            <strong>Making the Props using OpenGL</strong>
+                        <h2 class="post-title" id="props">
+                            Making the Props using OpenGL
                         </h2>
                         <p class="post-subtitle" style="text-align:justify;">
-                            The mid-point circle-drawing algorithm has also been implemented. Similar to the line-drawing algorithm, it checks the position of the mid-point of two choices with respect to the ideal circle to make a decision. The algorithm is based purely on integer arithmetic and is incremental in nature. Unlike the line-drawing algorithm, the increments are based on second order differentials since the equation of a circle is quadratic in nature. <br><br>
-							The standard algorithm draws circles with their centers at the origin. To overcome, this limitation, a simple shift in the origin before drawing the circle is employed. The origin is shifted back to its original location after drawing to restore the state of the canvas. The method exploits the 8-way symmetry of a circle. Instead of drawing the entire circle in the algorithm body itself, only 1/8 of it is drawn. The rest of the circle is completed by reflecting the arc along the axes, origin and y = x and y = -x to get the complete figure. This reflection can be done point-by-point using the following method:<br><br>
-
-							<strong>Name</strong>: drawCirclePoint<br><br>
-
-							<strong>Input</strong> The point to be drawn <x, y> and the color c.<br><br>
-
-							<strong>Step 1</strong>: Draw all the reflected points<br><br>
-
-							Draw the following points with color c:<br>
-							<x, y><br>
-							<-x, y><br>
-							<x,-y><br>
-							<-x, -y><br>
-							<y, x><br>
-							<-y, x><br>
-							<y, -x><br>
-							<-y,-x><br><br>
-
-							<strong>Step 2</strong>: End<br><br>
-
-							The main algorithm body is as follows:<br><br>
-
-							<strong>Name</strong>: drawCircle<br><br>
-
-							<strong>Input</strong>: The center of the circle <x1, y1> and the radius r and color c.<br><br>
-
-							<strong>Step 1</strong>: Shift the origin:-<br><br>
-
-							Shift the origin to <x1, y1>.<br><br>
-
-							<strong>Step 2</strong>: Initialize variables:-<br><br>
-
-							Set  d to 1 – r.<br>
-							Set dE to 3.<br>
-							Set dSE to -2*r + 5<br>
-							Set X = 0<br>
-							Set Y = r<br><br>
-
-							<strong>Step 3</strong>: Draw the first point:-<br><br>
-
-							Call drawCirclePoint(0, r, c).<br><br>
-
-							<strong>Step 4</strong>: Draw the rest of the points:-<br><br>
-
-							While Y > X do:<br>
-								If d < 0 increment d by dE and increment dSE by 2.<br>
-								If d >= 0 increment d by dSE, increment dSE by 4 and decrement Y by 1.<br>
-								Increment dE by 2 and X by 1.<br>
-								Call drawCirclePoint(X, Y, c)<br><br>
-
-							<strong>Step 5</strong>: Restore the origin:-<br><br>
-
-							Set the origin to <-x1, -y1><br><br>
-
-							<strong>Step 6</strong>: End
-                   
+                            Using GLUT primitives we designed 5 objects - a slide, a swing, a merry-go-round, monkey bars and a bench. We also used the primitives to make the ground, the wall surrounding the area, paths, etc. 
+                        </p>                                             
                     
                 </div>
-                <hr>
+                <hr>                
                 <div class="post-preview">
-                	<h2 class="post-title" id="analysis">
-                            Are the Powerpuff Girls good for Townsville?
+                	<h2 class="post-title" id="models">
+                            Blender Modelling
                         </h2>
-                        <p class="post-subtitle">
-                        	The artists at KAT Studios have created two modern masters. The first is titled La Blossoms de Naturale :
-                        	<img src="img/blossoms.jpg" align="left" width="683" height="384"> 
-                        	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                        	The second is titled Patcher in the Rye :
-							<img src="img/rye.png" align="left" width="683" height="384"> 
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							We experimented with our vision of evolution, we call it Smithsonian Evolution :
-							<img src="img/evo.png" align="left" width="683" height="384"> 
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							We now analyze the beauty of our art in numbers, although beauty is in the eye of the beholder. The figures with blue lines analyse the time taken to draw shrubs and the figures with red lines analyse the time taken to draw trees.
-							<img src="img/genVStime_shrub.png" align="left"> 
-							<img src="img/genVStime_tree.png" align="left"> 
-							<img src="img/popVStime_shrub.png" align="left"> 
-							<img src="img/popVStime_tree.png" align="left"> 									
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br>
-							To hone our artistic skills, we experimented with many other grammars.
-							<img src="img/1.png" align="left" width="683" height="384"> 
-							<img src="img/2.png" align="left" width="683" height="384"> 
-							<img src="img/3.png" align="left" width="683" height="384"> 
-							<img src="img/4.png" align="left" width="683" height="384"> 
-							<img src="img/5.png" align="left" width="683" height="384"> 
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-							<br><br><br><br><br><br><br><br><br>
+                        <p class="post-subtitle" style="text-align:justify;">
+                        	A Ferris Wheel modelled in Blender was imported into the playground. The wheel body, with its narrow faces were made by using the bevel-wireframe trick in Blender. First, a normal cylinder was created and the disks at its end, along with some portion of the trunk were extracted. The structure was then bevelled to generate the narrow surfaces. Following this, the wireframe filter was applied which eliminated all the earlier faces, leaving us with the structure. The seats were generated by slicing and contorting a cube, followed by applying repeated sub-diving of the surfaces to produce a high polygon-count structure. The colors were added to the diffusion property of the material, and were read likewise by the parser.
                         </p>
                 </div>
 
+                <hr>
+                <div class="post-preview">
+                    <h2 class="post-title" id="parser">
+                            The Parser
+                        </h2>
+                        <p class="post-subtitle" style="text-align:justify;">
+                            The Blender objects were exported into the wavefront obj format. A parser, written in C++ was generated was used to read these files. Since we have been experimenting with lighting, the normal information was also included along with the mesh information. The texture information (the UV coordinates) were completely omitted and the parser was written to handle the same. The color information was extracted from the “Kd” field of the material description in the mtl files.
+                        </p>
+                </div>
+                <hr>
+                <div class="post-preview">
+                   
+                        <h2 class="post-title" id="results">
+                            Results
+                        </h2>
+                        <p class="post-subtitle" style="text-align:justify;">
+                            
+                        </p>                                             
+                    
+                </div>                
                 <hr>
                 <div class="post-preview">
                    
@@ -238,11 +176,9 @@ table, th, td {
                             Speedbreakers Which Didn't Stop a Bugatti
                         </h2>
                         <p class="post-subtitle" style="text-align:justify;">
-                        	The unfamiliarity with OpenGL caused major issues while implementing the Canvas class. This was partially circumvented by segregating the drawing part (handled by the Canvas) and the displaying part (handled by OpenGL) as much as possible. Only the display function of the Canvas class interacts with OpenGL, where it uses OpenGL to display the points which the Canvas stores in an unordered map. In essence, the Canvas itself serves as a frame buffer. Apart from this, since OpenGL itself does not handle creation of windows, a helper library called GLUT had to be used for this purpose.
-                        	<br><br>
-							Secondly, since OpenGL and GLUT are C libraries, integrating them with the more advanced C++ caused a slight problem: The GLUT function glutDisplayFunc takes as a parameter a pointer to a function with no arguments which draws the points using the OpenGL API. OOP design patterns dictate that such a function should be a part of the Canvas class. However, since functions of a class cannot be passed into C functions, a work-around had to be implemented. The map, which should actually be a private variable of the class, had to be made public and a separate non-class function draw had to be written which uses a global pointer to a Canvas object to draw the points using the OpenGL API. The Canvas display function simply makes the global pointer to point to the current object.
-							<br><br>
-							Another major issue we faced was because of the environment we were using to build the project. The CMake builder didn’t allow us to use the in-built string class of C++. Hence, we had to resort to using C strings and had to rewrite major portions of the code to reflect these changes.
+                        	Being rather unfamiliar with Blender, it was difficult to get a hang of the basics, especially the camera movement within Blender. Apart from this, rather simple operations like subtraction, intersection etc. have to be performed using some convoluted procedures, which was again difficult to figure out.
+                            <br/><br/>
+                            Parsing the .obj and the .mtl files was again fairly difficult, as the format seems slightly counter-intuitive. Besides, since we did not use Blender material properties (which would require writing shaders), we had to cherry pick the ones that best represented the color of the object.
                 </p>
             	</div>
                 <hr>
