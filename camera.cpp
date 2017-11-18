@@ -53,35 +53,78 @@ void Camera::setupPosition(dvec3 position, dvec3 target, dvec3 up)
 
 void Camera:: roll(double angle)
 {
-    dvec3 temp = u;
-    u = dvec3(cos(radians(angle))*temp.x - sin(radians(angle))*v.x,cos(radians(angle))*temp.y - sin(radians(angle))*v.y, cos(radians(angle))*temp.z - sin(radians(angle))*v.z);
-    v = dvec3(cos(radians(angle))* v.x + sin(radians(angle))*temp.x,cos(radians(angle))*v.y + sin(radians(angle))*temp.y, cos(radians(angle))*v.z + sin(radians(angle))*temp.z);
+    dmat3 roll_matrix(0.0f);
+    roll_matrix[0][0] = cos(radians(angle));
+    roll_matrix[0][1] = -sin(radians(angle));
+    roll_matrix[1][0] = sin(radians(angle));
+    roll_matrix[1][1] = cos(radians(angle));
+
+    dmat3 original_matrix(0.0f);
+    original_matrix[0] = u;
+    original_matrix[1] = v;
+
+    dmat3 transformed_matrix = original_matrix*roll_matrix;
+    u = transformed_matrix[0];
+    v = transformed_matrix[1];
+
     setModelViewMatrix();
 }
 
 void Camera::move(dvec3 displacement)
 {
-    position.x += displacement.x * u.x + displacement.y * v.x + displacement.z * n.x;
-    target.x += displacement.x * u.x + displacement.y * v.x + displacement.z * n.x;
-    position.y += displacement.x * u.y + displacement.y * v.y + displacement.z * n.y;
-    target.y += displacement.x * u.y + displacement.y * v.y + displacement.z * n.y;
-    position.z += displacement.x * u.z + displacement.y * v.z + displacement.z * n.z;
-    target.z += displacement.x * u.z + displacement.y * v.z + displacement.z * n.z;
+    dmat3x3 mat;
+    mat[0][0] = u.x;
+    mat[0][1] = u.y;
+    mat[0][2] = u.z;
+
+    mat[1][0] = v.x;
+    mat[1][1] = v.y;
+    mat[1][2] = v.z;
+
+    mat[2][0] = n.x;
+    mat[2][1] = n.y;
+    mat[2][2] = n.z;
+
+    dvec3 change = mat*displacement;
+    position = position + change;
+    target = target + change;
     setModelViewMatrix();
 }
 
 void Camera:: yaw(double angle)
 {
-    dvec3 temp = u;
-    u = dvec3(cos(radians(angle))* temp.x + sin(radians(angle)) * n.x, cos(radians(angle))* temp.y + sin(radians(angle)) * n.y, cos(radians(angle))* temp.z + sin(radians(angle)) *n.z);
-    n = dvec3(cos(radians(angle))* n.x - sin(radians(angle))* u.x, cos(radians(angle))* n.y - sin(radians(angle))* u.y, cos(radians(angle))* n.z - sin(radians(angle))* u.z);
+    dmat3 yaw_matrix(0.0f);
+    yaw_matrix[0][0] = cos(radians(angle));
+    yaw_matrix[0][1] = sin(radians(angle));
+    yaw_matrix[1][0] = -sin(radians(angle));
+    yaw_matrix[1][1] = cos(radians(angle));
+
+    dmat3 original_matrix(0.0f);
+    original_matrix[0] = u;
+    original_matrix[1] = n;
+
+    dmat3 transformed_matrix = original_matrix*yaw_matrix;
+    u = transformed_matrix[0];
+    n = transformed_matrix[1];
+
     setModelViewMatrix();
 }
 
 void Camera:: pitch(double angle)
 {
-    dvec3 temp = v;
-    v = dvec3(cos(radians(angle)) * temp.x - sin(radians(angle)) * n.x,cos(radians(angle)) * temp.y - sin(radians(angle)) * n.y, cos(radians(angle)) * temp.z - sin(radians(angle)) * n.z);
-    n = dvec3(cos(radians(angle)) * n.x + sin(radians(angle)) * v.x, cos(radians(angle)) * n.y + sin(radians(angle)) * v.y, cos(radians(angle)) * n.z + sin(radians(angle)) * v.z);
+    dmat3 pitch_matrix(0.0f);
+    pitch_matrix[0][0] = cos(radians(angle));
+    pitch_matrix[0][1] = -sin(radians(angle));
+    pitch_matrix[1][0] = sin(radians(angle));
+    pitch_matrix[1][1] = cos(radians(angle));
+
+    dmat3 original_matrix(0.0f);
+    original_matrix[0] = v;
+    original_matrix[1] = n;
+
+    dmat3 transformed_matrix = original_matrix*pitch_matrix;
+    v = transformed_matrix[0];
+    n = transformed_matrix[1];
+
     setModelViewMatrix();
 }
