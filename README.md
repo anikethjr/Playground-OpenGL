@@ -2,11 +2,11 @@
 
 Steps to get the code running:
 
-1. Install OpenGL and GLUT.
+1. Install OpenGL, GLUT and GLM.
 
-2. Clone the repo using an IDE like CLion.
+2. Clone the repo.
 
-3. Build the project with the following arguments -lglut -lGL -lGLU
+3. Compile the project using the command "g++-5 *.cpp *.h -std=c++11 -lGL -lglut -lGLU"
 
 4. Run the executable
 
